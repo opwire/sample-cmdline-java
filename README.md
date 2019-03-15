@@ -14,7 +14,7 @@ Change the project home to current working directory:
 cd sample-cmdline-java
 ```
 
-Install dependencies:
+Install dependencies and build packages:
 
 ```shell
 mvn clean package
@@ -29,7 +29,7 @@ Download and extract the latest [`opwire-agent`](https://github.com/opwire/opwir
 Execute the following command:
 
 ```shell
-./opwire-agent -p=8888 --default-command="java -jar target/sample-cmdline-java-1.0.0-jar-with-dependencies.jar"
+./opwire-agent -p=8888 --default-command="java -jar target/sample-cmdline-java-1.0.0-all.jar"
 ```
 
 Open this URL `http://localhost:8888/run?type=microservice&type=java`:
@@ -44,7 +44,7 @@ Open this URL `http://localhost:8888/run?type=microservice&type=java`:
 Execute the following command:
 
 ```shell
-./opwire-agent -p=8888 --default-command="java -jar target/sample-cmdline-java-1.0.0-jar-with-dependencies.jar"
+./opwire-agent -p=8888 --default-command="java -jar target/sample-cmdline-java-1.0.0-all.jar"
 ```
 
 #### Valid input (a JSON object)
@@ -186,7 +186,7 @@ Execute the following command:
 
 ```shell
 ./opwire-agent -p=8888 \
-  --default-command="java -jar target/sample-cmdline-java-1.0.0-jar-with-dependencies.jar --input-format json --output-format text"
+  --default-command="java -jar target/sample-cmdline-java-1.0.0-all.jar --input-format json --output-format text"
 ```
 
 #### Valid input (a JSON object)

@@ -9,7 +9,7 @@ import java.util.Map;
 
 public class Bootstrap {
     private Map<String, Object> store;
-    private static final String[] ENVINROMENT_NAMES = {"OPWIRE_REQUEST"};
+    private static final String[] ENVINROMENT_NAMES = {"OPWIRE_EDITION", "OPWIRE_REQUEST", "OPWIRE_SETTING"};
     private Map<String, Object> args;
 
     public Bootstrap(Map<String, Object> args) {
