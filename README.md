@@ -254,6 +254,14 @@ Result:
 {stack=[Ljava.lang.StackTraceElement;@5fcfe4b2, name=JsonSyntaxException, message=java.lang.IllegalStateException: Expected BEGIN_OBJECT but was STRING at line 1 column 1 path $}
 ```
 
+## Contributing
+
+1. Fork it
+2. Create your feature branch (`git checkout -b your-new-feature`)
+3. Commit your changes (`git commit -am "Add some feature"`)
+4. Push to the branch (`git push origin your-new-feature`)
+5. Create new Pull Request
+
 ## License
 
 MIT
