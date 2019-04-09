@@ -29,10 +29,10 @@ Download and extract the latest [`opwire-agent`](https://github.com/opwire/opwir
 Execute the following command:
 
 ```shell
-./opwire-agent -p=8888 --default-command="java -jar target/sample-cmdline-java-1.0.0-all.jar"
+./opwire-agent serve
 ```
 
-Open this URL `http://localhost:8888/run?type=microservice&type=java`:
+Open this URL `http://localhost:8888/$?type=microservice&type=java`:
 
 ![example-output](https://raw.github.com/opwire/sample-cmdline-java/master/docs/assets/images/example.png)
 
@@ -44,7 +44,7 @@ Open this URL `http://localhost:8888/run?type=microservice&type=java`:
 Execute the following command:
 
 ```shell
-./opwire-agent -p=8888 --default-command="java -jar target/sample-cmdline-java-1.0.0-all.jar"
+./opwire-agent serve -p=8888 --default-command="java -jar target/sample-cmdline-java-1.0.0-all.jar"
 ```
 
 #### Valid input (a JSON object)
@@ -52,50 +52,160 @@ Execute the following command:
 Make a HTTP request with `curl`:
 
 ```curl
-curl -v \
-  --request POST \
-  --url 'http://localhost:8888/run?type=microservice&type=java' \
+curl -v --request POST \
+  --url 'http://localhost:8888/%24?type=microservice&type=java' \
+  --header 'opwire-execution-timeout: 1.5s' \
+  --header 'opwire-explain-failure: 1' \
+  --header 'opwire-explain-success: 1' \
+  --header 'opwire-request-id: 34c8afe2-3b21-485e-b3f5-034907352516' \
   --data '{
   "name": "Opwire",
-	"url": "https://opwire.org/"
+  "url": "https://opwire.org/"
 }'
 ```
 
 Result:
 
 ```plain
-> POST /run?type=microservice&type=java HTTP/1.1
+> POST /$?type=microservice&type=java HTTP/1.1
+> User-Agent: curl/7.35.0
 > Host: localhost:8888
-> User-Agent: curl/7.54.0
 > Accept: */*
-> Content-Length: 52
+> opwire-execution-timeout: 1.5s
+> opwire-explain-failure: 1
+> opwire-explain-success: 1
+> opwire-request-id: 34c8afe2-3b21-485e-b3f5-034907352516
+> Content-Length: 54
 > Content-Type: application/x-www-form-urlencoded
 > 
-* upload completely sent off: 52 out of 52 bytes
-< HTTP/1.1 200 OK
+* upload completely sent off: 54 out of 54 bytes
+< HTTP/1.1 205 Reset Content
 < Content-Type: text/plain
-< X-Exec-Duration: 0.495879
-< Date: Fri, 15 Mar 2019 04:13:14 GMT
-< Content-Length: 430
+< X-Exec-Duration: 0.187978
+< Date: Tue, 09 Apr 2019 06:14:35 GMT
+< Transfer-Encoding: chunked
 < 
+
+[edition------------------------------------------------------------------------
 {
+  "revision": "3de2f29",
+  "version": "v1.0.6-34-g3de2f29"
+}
+------------------------------------------------------------------------edition]
+
+[request------------------------------------------------------------------------
+{
+  "header": {
+    "Accept": [
+      "*/*"
+    ],
+    "Content-Length": [
+      "54"
+    ],
+    "Content-Type": [
+      "application/x-www-form-urlencoded"
+    ],
+    "Opwire-Execution-Timeout": [
+      "1.5s"
+    ],
+    "Opwire-Explain-Failure": [
+      "1"
+    ],
+    "Opwire-Explain-Success": [
+      "1"
+    ],
+    "Opwire-Request-Id": [
+      "34c8afe2-3b21-485e-b3f5-034907352516"
+    ],
+    "User-Agent": [
+      "curl/7.35.0"
+    ]
+  },
+  "method": "POST",
+  "params": null,
+  "path": "/$",
+  "query": {
+    "type": [
+      "microservice",
+      "java"
+    ]
+  }
+}
+------------------------------------------------------------------------request]
+
+[command------------------------------------------------------------------------
+{
+  "provided": {
+    "method": "POST",
+    "resource": "",
+    "timeout": 1.5
+  },
+  "resolved": {
+    "command": "java -jar target/sample-cmdline-java-1.0.0-all.jar",
+    "method": null,
+    "resource": ":default-resource:",
+    "timeout": 1.5
+  }
+}
+------------------------------------------------------------------------command]
+
+[settings-----------------------------------------------------------------------
+{
+  "MYSQL_PASSWORD": "root",
+  "MYSQL_URL": "mysql://localhost:3306",
+  "MYSQL_USERNAME": "root"
+}
+-----------------------------------------------------------------------settings]
+
+[stdin--------------------------------------------------------------------------
+{
+  "name": "Opwire",
+  "url": "https://opwire.org/"
+}
+--------------------------------------------------------------------------stdin]
+
+[stdout-------------------------------------------------------------------------
+{
+  "OPWIRE_EDITION": {
+    "revision": "3de2f29",
+    "version": "v1.0.6-34-g3de2f29"
+  },
   "input": {
     "name": "Opwire",
     "url": "https://opwire.org/"
   },
+  "OPWIRE_SETTINGS": {
+    "MYSQL_PASSWORD": "root",
+    "MYSQL_URL": "mysql://localhost:3306",
+    "MYSQL_USERNAME": "root"
+  },
   "OPWIRE_REQUEST": {
+    "method": "POST",
+    "path": "/$",
     "header": {
       "Accept": [
         "*/*"
       ],
       "Content-Length": [
-        "52"
+        "54"
       ],
       "Content-Type": [
         "application/x-www-form-urlencoded"
       ],
+      "Opwire-Execution-Timeout": [
+        "1.5s"
+      ],
+      "Opwire-Explain-Failure": [
+        "1"
+      ],
+      "Opwire-Explain-Success": [
+        "1"
+      ],
+      "Opwire-Request-Id": [
+        "34c8afe2-3b21-485e-b3f5-034907352516"
+      ],
       "User-Agent": [
-        "curl/7.54.0"
+        "curl/7.35.0"
       ]
     },
     "query": {
@@ -106,6 +216,9 @@ Result:
     }
   }
 }
+
+-------------------------------------------------------------------------stdout]
+* Connection #0 to host localhost left intact
 ```
 
 #### Invalid input (not a JSON object)
@@ -115,14 +228,14 @@ Make a HTTP request with `curl`:
 ```curl
 curl -v \
   --request POST \
-  --url 'http://localhost:8888/run?type=microservice&type=java' \
+  --url 'http://localhost:8888/$?type=microservice&type=java' \
   --data 'Not a JSON object'
 ```
 
 Result:
 
 ```plain
-> POST /run?type=microservice&type=java HTTP/1.1
+> POST /$?type=microservice&type=java HTTP/1.1
 > Host: localhost:8888
 > User-Agent: curl/7.54.0
 > Accept: */*
@@ -185,7 +298,7 @@ Result:
 Execute the following command:
 
 ```shell
-./opwire-agent -p=8888 \
+./opwire-agent serve -p=8888 \
   --default-command="java -jar target/sample-cmdline-java-1.0.0-all.jar --input-format json --output-format text"
 ```
 
@@ -196,7 +309,7 @@ Make a HTTP request with `curl`:
 ```curl
 curl -v \
   --request POST \
-  --url 'http://localhost:8888/run?type=microservice&type=java' \
+  --url 'http://localhost:8888/$?type=microservice&type=java' \
   --data '{
   "name": "Opwire",
 	"url": "https://opwire.org/"
@@ -206,7 +319,7 @@ curl -v \
 Result:
 
 ```plain
-> POST /run?type=microservice&type=java HTTP/1.1
+> POST /$?type=microservice&type=java HTTP/1.1
 > Host: localhost:8888
 > User-Agent: curl/7.54.0
 > Accept: */*
@@ -230,14 +343,14 @@ Make a HTTP request with `curl`:
 ```curl
 curl -v \
   --request POST \
-  --url 'http://localhost:8888/run?type=microservice&type=java' \
+  --url 'http://localhost:8888/$?type=microservice&type=java' \
   --data 'Not a JSON object'
 ```
 
 Result:
 
 ```plain
-> POST /run?type=microservice&type=java HTTP/1.1
+> POST /$?type=microservice&type=java HTTP/1.1
 > Host: localhost:8888
 > User-Agent: curl/7.54.0
 > Accept: */*
